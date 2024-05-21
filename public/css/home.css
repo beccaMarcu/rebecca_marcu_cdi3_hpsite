@@ -1,0 +1,116 @@
+h1, h2, p, ul, li {
+    margin: 5;
+    padding: 0;
+}
+
+body{
+    background-color: #eeba30;
+    display: flex;
+    margin: 0;
+}
+
+#open-sidebar {
+    display: none;
+}
+#open-sidebar:checked + .navbar {
+    width: 15px;
+}
+#open-sidebar:checked + .navbar ul {
+    display: none;
+}
+.navbar {
+    background-color: #7f0909;
+    text-align: center;
+    padding: 15px;
+    height: 100vh;
+    width: 225px;
+    overflow: hidden;
+}
+
+.navbar label {
+    cursor: pointer;
+}
+.navbar li {
+    display: block;
+    margin-bottom: 20px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 20px;
+    display: block;
+}
+
+.navbar a:hover {
+    background-color: #555;
+}
+.navbar li.active a {
+    background-color: #eeba30;
+    color: #000000;
+}
+
+.logo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.characters-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    height: 100vh;
+    width: 100%;
+    overflow: scroll;
+}
+    /*  je voulais afficher trois cartes par lignes*/
+    .characters-container > a {
+        color: #000000;
+        text-decoration: none;
+    }
+    .characters-container > a.favorite, 
+    .characters-container > a.unfavorite {
+        position: relative;
+        width: 15px;
+        height: 15px;
+        left: -80px;
+        top: 38px;
+        opacity: 0.5;
+    }
+    .characters-container > a.favorite:hover, 
+    .characters-container > a.unfavorite:hover {
+        opacity: 1;
+    }
+    .characters {
+        width: 250px;
+        height: 400px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        background-color: #7f0909;
+        border-radius: 15px;
+        margin: 10px;
+        text-align: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position-y: 60px;
+        background-position-x: center;
+    }
+    .characters.favorite {
+        outline: 5px solid gold;
+    }
+    .characters h2 {
+        padding-top: 15px;
+    }
+    /* presque les mêmes dimensions + cartes arrondies*/
+    
+    .characters img {
+        width: 75%; 
+        height: auto; 
+        max-width: 75%;
+        max-height: 75%; 
+        object-fit: contain;
+    }
+/* je voulais que l'image soit la plus centrée
+possible

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/booster.css">
+    <link href="fonts/fontawesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="fonts/fontawesome/css/solid.css" rel="stylesheet" />
+    <title>Harry Potter Trading Card</title>
+</head>
+<body>
+    <input type="checkbox" name="open-sidebar" id="open-sidebar" />
+    <div class="navbar">
+        <label for="open-sidebar" class="fa fa-burger"></label>
+        <ul>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/collection">Collection</a></li>
+            <li class="active"><a href="/booster">Ouvrir un booster</a></li>
+            <li><a href="/trade">Echanger des cartes</a></li>
+        </ul>
+    </div>
+
+   <div id="characters" class="characters-container">
+        <div id="open-booster" class="button">Ouvrir un booster</div>
+   </div>
+
+   <script>
+    const charactersContainer = document.querySelector('#characters');
+
+    async function displayCharacters(cards) {
+        cards.forEach(character => {
+            charactersContainer.innerHTML += `
+                <a href="/card?slug=${character.slug}">
+                    <div class="characters" style="background-image: url(${character.image})">
+                        <h2>${character.name}</h2> 
+                    </div>
+                </a>`;
+        });
+        
+        setTimeout(function() {
+            const boosterCards = charactersContainer.querySelectorAll('div');
+            boosterCards.forEach(function(card, index) {
+                setTimeout(function() {
+                    card.classList.add('animate');
+                }, index * 200);
+            });
+        }, 200);
+    }
+
+    async function openBooster()
+    {
+        const reponse = await fetch('/open-booster');
+        const result = await reponse.json();
+
+        if(result.result !== undefined && result.result == 'error') {
+            alert(result.error);
+            return;
+        }
+
+        displayCharacters(result);
+
+        let openBoosterButton = document.getElementById('open-booster');
+        openBoosterButton.parentElement.removeChild(openBoosterButton);
+    }
+
+    document.getElementById('open-booster').addEventListener('click', function() {
+        openBooster();
+    });
+
+    
+   </script>
+
+    
+</body>
+</html>

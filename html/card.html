@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/card.css">
+    <link href="fonts/fontawesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="fonts/fontawesome/css/solid.css" rel="stylesheet" />
+    <title>Harry Potter Trading Card</title>
+</head>
+<body>
+
+    <input type="checkbox" name="open-sidebar" id="open-sidebar" />
+    <div class="navbar">
+        <label for="open-sidebar" class="fa fa-burger"></label>
+        <ul>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/collection">Collection</a></li>
+            <li class="active"><a href="/booster">Ouvrir un booster</a></li>
+            <li><a href="/trade">Echanger des cartes</a></li>
+        </ul>
+    </div>
+
+    <div id="character"></div>
+    <script>
+
+            function fetchcharacter() { 
+            let url = window.location.search
+            let slug = new URLSearchParams(url).get('slug')
+            console.log(slug)
+             return fetch('https://hp-api.lainocs.fr/characters/' + slug)
+            .then((response) => response.json())
+            }
+            // nous avons crée une fonction qui va chercher les personnages à partir d'un slug
+            // ces slugs se trouvent l'api fournie en cours 
+            // à ce moment on peut voir les infos du cerveau dans la console
+ 
+            async function displayCharacter()
+             {
+                const data = await fetchcharacter()
+            document.querySelector('#character').innerHTML = `
+             
+                <h1>${data.name}</h1> 
+                <p>${data.house}</p>
+                <p>${data.actor}</p>
+            `
+            document.querySelector('#character').style.backgroundImage = `url(${data.image})`;
+            }
+            // nous avons crée une fonction asynchrone puisqu'elle attend le await pour s'éxecuter
+            // puis on affiche le character dans l'html avec son nom, sa maison, le nom de l'acteur et
+            // l'image
+            //on a aussi crée un bouton back pour retourner à la page principale 
+
+            displayCharacter()
+
+
+    </script>
+</body>
+</html>

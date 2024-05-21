@@ -1,0 +1,47 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/login.css"> 
+    <title>Connexion</title>
+</head>
+<body>
+
+<div class="container">
+        <h2>Connexion</h2>
+        <form id="login-form" method="POST">
+           
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group button">
+                <a href="/subscribe" class="subscribe">S'inscrire</a>
+                <button type="submit" class="btn btn-primary">Se connecter</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script> 
+        var socket = io.connect('http://localhost:8080');
+
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+            
+            socket.emit('login', {'email': email, 'password': password});
+            
+            setTimeout(function() {
+                window.location.reload();
+            }, 500);
+        });
+    </script>
+</body>
+</html>

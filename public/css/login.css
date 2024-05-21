@@ -1,0 +1,62 @@
+body {
+    background: url(/images/background.jpg) no-repeat center center;
+    background-size: cover;
+}
+.container {
+    width: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px #c0c0c0;
+    padding: 20px;
+    background-color: #ffffff;
+    opacity: 0.95;
+}
+    .container h2 {
+        font-family: Arial, Helvetica, sans-serif;
+        margin-top: 0px;
+    }
+    .container .form-group {
+        padding: 5px;
+    }
+    .container .form-group.button {
+        text-align: right;
+    }
+    .container form label {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        display: inline-block;
+        width: 100px;
+        margin-bottom: 10px;
+    }
+    .container form input {
+        padding: 10px;
+        border: none;
+        border-radius: 3px;
+        width: 100%;
+    }
+    .container form .subscribe {
+        display: inline-block;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        display: inline-block;
+        border: none;
+        padding: 10px 20px;
+        margin-top: 10px;
+        color: #000000;
+    }
+    .container form button {
+        display: inline-block;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        display: inline-block;
+        border-radius: 3px;
+        border: none;
+        background-color: #872626;
+        padding: 10px 20px;
+        color: #ffffff;
+        margin-top: 10px;
+        cursor: pointer;
+    }

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/trade.css">
+    <link href="fonts/fontawesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="fonts/fontawesome/css/solid.css" rel="stylesheet" />
+    <title>Harry Potter Trading Card</title>
+</head>
+<body>
+    <input type="checkbox" name="open-sidebar" id="open-sidebar" />
+    <div class="navbar">
+        <label for="open-sidebar" class="fa fa-burger"></label>
+        <ul>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/collection">Collection</a></li>
+            <li><a href="/booster">Ouvrir un booster</a></li>
+            <li class="active"><a href="/trade">Echanger des cartes</a></li>
+        </ul>
+    </div>
+    <div id="trade">
+        <form id="trade-card">
+            <h2>Echanger une carte</h2>
+            <div class="form-group">
+                <label for="card_id">Carte à envoyer</label>
+                <select id="card_id" name="card_id">
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="recipient">Pseudo du destinataire</label>
+                <input type="text" id="recipient" name="recipient" />
+            </div>
+
+            <div class="form-group button">
+                <button type="submit">Envoyer la carte</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function fetchCharacters() {
+            return fetch('http://localhost:8080/user-collection')
+                .then((response) => response.json());
+        }
+
+        async function displayCharacters() {
+            const data = await fetchCharacters();
+            const cardsSelect = document.querySelector('#card_id');
+            data.forEach(character => {
+                cardsSelect.innerHTML += `<option value="${character.id}">${character.name}</option>`;
+            });
+        } 
+
+        displayCharacters();
+
+        document.getElementById('trade-card').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let card_id = document.getElementById('card_id').value;
+            let recipient = document.getElementById('recipient').value;
+
+            fetch(`/trade-card?card_id=${card_id}&recipient=${recipient}`).then(function(response) {
+                response.json().then(function(data) {
+                    console.log(data);
+
+                    if(data.status == 'success') {
+                        alert('Success!');
+                    } else if(data.status == 'error') {
+                        alert('Error : ' + data.error);
+                    }
+                });
+            });
+        });
+        
+    </script>
+</body>
+</html>

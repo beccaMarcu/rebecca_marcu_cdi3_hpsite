@@ -1,0 +1,59 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/subscribe.css"> 
+    <title>Formulaire d'inscription</title>
+</head>
+<body>
+
+<div class="container">
+        <h2>Formulaire d'inscription</h2>
+        <form id="subscribe-form" method="POST">
+            <div class="form-group">
+                <label for="pseudo">Prénom</label>
+                <input type="text" class="form-control" id="pseudo" name="pseudo" required>
+            </div>
+           
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirmation du mot de passe</label>
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+            </div>
+            <div class="form-group button">
+                <a href="/" class="subscribe">Se connecter</a>
+                <button type="submit" class="btn btn-primary">S'inscrire</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script> 
+        var socket = io.connect('http://localhost:8080');
+
+        document.getElementById('subscribe-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            let pseudo = document.getElementById('pseudo').value;
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+            let confirmPassword = document.getElementById('confirmPassword').value;
+
+            if(password != confirmPassword)
+            {
+                alert("Les mots de passe saisis ne correspondent pas.");
+                return;
+            }
+
+            socket.emit('subscribe', {'pseudo': pseudo, 'email': email, 'password': password});
+        });
+    </script>
+</body>
+</html>

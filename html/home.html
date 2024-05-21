@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/home.css">
+    <link href="fonts/fontawesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="fonts/fontawesome/css/solid.css" rel="stylesheet" />
+    <title>Harry Potter Trading Card</title>
+</head>
+<body>
+    <input type="checkbox" name="open-sidebar" id="open-sidebar" />
+    <div class="navbar">
+        <label for="open-sidebar" class="fa fa-burger"></label>
+        <ul>
+            <li class="active"><a href="/">Accueil</a></li>
+            <li><a href="/collection">Collection</a></li>
+            <li><a href="/booster">Ouvrir un booster</a></li>
+            <li><a href="/trade">Echanger des cartes</a></li>
+        </ul>
+    </div>
+    <div id="characters" class="characters-container"></div>
+    <script>
+        function fetchCharacters() {
+            return fetch('https://hp-api.lainocs.fr/characters')
+                .then((response) => response.json());
+        }
+
+        async function displayCharacters() {
+            const data = await fetchCharacters();
+            const charactersContainer = document.querySelector('#characters');
+            data.forEach(character => {
+                charactersContainer.innerHTML += `
+                    <a href="/card?slug=${character.slug}">
+                        <div class="characters" style="background-image: url(${character.image} )">
+                            <h2>${character.name}</h2> 
+                        </div>
+                    </a>`;
+            });
+        } // Là on va chercher toute la liste de personnages pas un personnage en particulier et 
+        //on va tous les afficher
+
+        displayCharacters();
+
+
+        
+    </script>
+</body>
+</html>
